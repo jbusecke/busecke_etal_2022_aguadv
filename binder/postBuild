@@ -5,4 +5,4 @@ echo "Script executed from: ${PWD}"
 
 echo "WHERE AM I?"
 ls
-./scripts/download_zenodo_files.sh
+# ./scripts/download_zenodo_files.sh
