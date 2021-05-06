@@ -1,4 +1,5 @@
 #!/bin/bash
 set -ex
-pwd
-./../scripts/download_zenodo_files.sh
+
+echo "Script executed from: ${PWD}"
+scripts/download_zenodo_files.sh
