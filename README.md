@@ -3,6 +3,7 @@
 <!-- [![Build Status](https://github.com/jbusecke/busecke_etal_2021_aguadv/workflows/Tests/badge.svg)](https://github.com/jbusecke/busecke_etal_2021_aguadv/actions) -->
 <!-- [![codecov](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv/branch/master/graph/badge.svg)](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv) -->
 [![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
+[![Preprocessed Data DOI (submission version)](https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.812722.svg)](https://doi.org/10.5072/zenodo.812722)
 <!-- [![pypi](https://img.shields.io/pypi/v/busecke_etal_2021_aguadv.svg)](https://pypi.org/project/busecke_etal_2021_aguadv) -->
 <!-- [![conda-forge](https://img.shields.io/conda/dn/conda-forge/busecke_etal_2021_aguadv?label=conda-forge)](https://anaconda.org/conda-forge/busecke_etal_2021_aguadv) -->
 <!-- [![Documentation Status](https://readthedocs.org/projects/busecke_etal_2021_aguadv/badge/?version=latest)](https://busecke_etal_2021_aguadv.readthedocs.io/en/latest/?badge=latest) -->
@@ -39,7 +40,7 @@ Then you can just run `notebooks/busecke_etal_2021_aguadv_plots.ipynb` to reprod
 
 ## Full preprocessing
 
-The code for processing the raw data can be found in `notebooks/preprocessing/`. These are only reproducible on the princeton cluster [tigercpu]() and are not included due to their sheer size (100TB +).
+The code for processing the raw data can be found in `notebooks/preprocessing/`. These are only reproducible on the princeton cluster [tigercpu](https://researchcomputing.princeton.edu/systems/tiger) and are not included due to their sheer size (100TB +).
 
 --------
 
