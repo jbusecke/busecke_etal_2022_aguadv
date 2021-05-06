@@ -4,7 +4,7 @@
 python scripts/parse_filenames.py
 
 #download the files in the list
-cd data
+cd data/test
 wget -i ../zenodo_filelist.txt
 
 #delete the filelist
