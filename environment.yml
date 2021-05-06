@@ -31,10 +31,8 @@ dependencies:
   - pip:
       - rechunker
       - fastjmd95
-      - git+https://github.com/SciTools/nc-time-axis.git # still needed until release (https://github.com/SciTools/nc-time-axis/issues/54)
+      - git+https://github.com/SciTools/nc-time-axis.git # still needed from source until release (https://github.com/SciTools/nc-time-axis/issues/54)
       - git+https://github.com/jbusecke/cmip6_preprocessing.git
       - git+https://github.com/xgcm/xgcm.git
       - git+https://github.com/jbusecke/xarrayutils.git
-# I have had some trouble with the bleeding edge version that seems resolved now, just in case this is a fallback option
-#      - git+https://github.com/NCAR/intake-esm.git@v2020.05.01
       - git+https://github.com/NCAR/intake-esm.git
