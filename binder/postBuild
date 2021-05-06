@@ -1,8 +1,5 @@
 #!/bin/bash
 set -ex
 
-echo "Script executed from: ${PWD}"
-
-echo "WHERE AM I?"
-ls
-# ./scripts/download_zenodo_files.sh
+# install this package into the conda env
+pip install .

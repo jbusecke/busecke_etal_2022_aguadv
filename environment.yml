@@ -27,6 +27,7 @@ dependencies:
   - numba
   - h5netcdf
   - pip
+  - cf_xarray
   - pip:
       - rechunker
       - fastjmd95
