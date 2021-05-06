@@ -1,0 +1,3 @@
+set -ex
+
+./scripts/download_zenodo_files.sh
