@@ -1,11 +1,11 @@
 # busecke_etal_2021_aguadv
-==========================
-
 
 <!-- [![Build Status](https://github.com/jbusecke/busecke_etal_2021_aguadv/workflows/Tests/badge.svg)](https://github.com/jbusecke/busecke_etal_2021_aguadv/actions) -->
 <!-- [![codecov](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv/branch/master/graph/badge.svg)](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv) -->
-[![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)[![pypi](https://img.shields.io/pypi/v/busecke_etal_2021_aguadv.svg)](https://pypi.org/project/busecke_etal_2021_aguadv)
-<!-- [![conda-forge](https://img.shields.io/conda/dn/conda-forge/busecke_etal_2021_aguadv?label=conda-forge)](https://anaconda.org/conda-forge/busecke_etal_2021_aguadv) -->[![Documentation Status](https://readthedocs.org/projects/busecke_etal_2021_aguadv/badge/?version=latest)](https://busecke_etal_2021_aguadv.readthedocs.io/en/latest/?badge=latest)
+[![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
+<!-- [![pypi](https://img.shields.io/pypi/v/busecke_etal_2021_aguadv.svg)](https://pypi.org/project/busecke_etal_2021_aguadv) -->
+<!-- [![conda-forge](https://img.shields.io/conda/dn/conda-forge/busecke_etal_2021_aguadv?label=conda-forge)](https://anaconda.org/conda-forge/busecke_etal_2021_aguadv) -->
+<!-- [![Documentation Status](https://readthedocs.org/projects/busecke_etal_2021_aguadv/badge/?version=latest)](https://busecke_etal_2021_aguadv.readthedocs.io/en/latest/?badge=latest) -->
 
 
 The code to reproduce the Figures from our paper submitted to AGU Advances.
@@ -37,14 +37,9 @@ $ pip install .
 Then you can just run `notebooks/busecke_etal_2021_aguadv_plots.ipynb` to reproduce the results.
 
 
-## TODO: 
-- pin environment before submission
-- Refactor all routines from old repo
-- Where to move the heavy lifting notebooks...
-- What should still be factored out?
-- There is an issue with matplotlib contour (i suppose from a new version. ) Investigate.
-- The folder depth with the new repo is messed up. Fix the preprocessing notebooks.
+## Full preprocessing
 
+The code for processing the raw data can be found in `notebooks/preprocessing/`. These are only reproducible on the princeton cluster [tigercpu]() and are not included due to their sheer size (100TB +).
 
 --------
 
