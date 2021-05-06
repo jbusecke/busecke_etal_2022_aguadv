@@ -1,5 +1,5 @@
 #!/bin/bash
 set -ex
-
+cd busecke_etal_2021_aguadv
 echo "Script executed from: ${PWD}"
-scripts/download_zenodo_files.sh
+./scripts/download_zenodo_files.sh
