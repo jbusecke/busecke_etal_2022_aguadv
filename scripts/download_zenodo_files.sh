@@ -4,8 +4,10 @@
 python scripts/parse_filenames.py
 
 #download the files in the list
-cd data/test
+cd data
 wget -i ../../zenodo_filelist.txt
 
 #delete the filelist
-# rm ../../zenodo_filelist.txt
+rm ../../zenodo_filelist.txt
+
+tar -xf busecke_etal_2021_aguadv.tar
