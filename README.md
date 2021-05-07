@@ -20,7 +20,7 @@ The simplest option. Just click on the button below and execute the notebook whe
 
 > Downloading the data and unpacking it can take some time.
 
-[![Binder](https://binder.pangeo.io/badge_logo.svg)](https://binder.pangeo.io/v2/gh/jbusecke/busecke_etal_2021_aguadv/main)
+[![Binder](https://binder.pangeo.io/badge_logo.svg)](https://binder.pangeo.io/v2/gh/jbusecke/busecke_etal_2021_aguadv/main?filepath=notebooks%2Fbusecke_etal_2021_aguadv_plots.ipynb)
 
 ### Option 2: Manually reproduce results
 Clone this repository to your machine of choice
