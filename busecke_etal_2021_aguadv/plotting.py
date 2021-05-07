@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import matplotlib.ticker as mticker
 
 import cartopy.crs as ccrs
 from busecke_etal_2021_aguadv.utils import o2_models
