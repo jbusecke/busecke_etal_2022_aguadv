@@ -28,11 +28,13 @@ dependencies:
   - h5netcdf
   - pip
   - cf_xarray
+#   - rechunker # if needed take <=0.3.3
+  - fastjmd95
+  - nc-time-axis
+  - xarrayutils
+  - intake-esm
+  - xgcm
+  - cmip6_preprocessing
+  - pip
   - pip:
-      - rechunker
-      - fastjmd95
-      - git+https://github.com/SciTools/nc-time-axis.git # still needed from source until release (https://github.com/SciTools/nc-time-axis/issues/54)
-      - git+https://github.com/jbusecke/cmip6_preprocessing.git
-      - git+https://github.com/xgcm/xgcm.git
-      - git+https://github.com/jbusecke/xarrayutils.git
-      - git+https://github.com/NCAR/intake-esm.git
+      - git+https://github.com/jbusecke/cmip6_omz.git
