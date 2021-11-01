@@ -22,6 +22,8 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*/_version.py
+pip-wheel-metadata/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -76,7 +78,8 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-#/data/
+/data/
+*/dask-worker-space/
 # I want to be able to handle links in here...need to exclude certain file types
 # instead
 

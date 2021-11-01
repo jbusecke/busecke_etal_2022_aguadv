@@ -7,6 +7,14 @@ import numpy as np
 import matplotlib.ticker
 import regionmask
 from cmip6_preprocessing.regionmask import merged_mask
+from cmip6_preprocessing.utils import cmip6_dataset_id
+from fastprogress import progress_bar
+from xarrayutils.utils import linear_trend
+import xesmf as xe
+
+hist_slice = slice('1950', '2000')
+trend_slice = slice('2000', '2100')
+
 
 def o2_models():
     """A central place to store all available models with o2 output"""
@@ -75,69 +83,83 @@ def stci(ds):
     return region.max(dims) - region.min(dims)
 
 
-def read_files(
-    ddir,
-    pattern="*.nc",
-    sep="_",
-    models=o2_models(), # this should go and just scan all files
-    experiments=["historical", "ssp585"],
-    read_chunks={"time": 10, "memebr_id": 1},
-    verbose=False,
-):
-    """Scans `ddir` and loads/parses datasets into a nested dictionary of xarray datasets"""
-    if not isinstance(ddir, pathlib.Path):
-        ddir = pathlib.Path(ddir)
+def load_zarr_directory(path, pattern='*.zarr', zarr_kwargs={}):
+    """Convenience function to read CMIP6 data"""
+    zarr_kwargs.setdefault('use_cftime', True)
+    zarr_kwargs.setdefault('consolidated', True)
+    if not isinstance(path, pathlib.Path):
+        path = pathlib.Path(path)
+    flist = list(path.glob(pattern))
+    # TODO Can I accelerate this with dask.delayed?
+    datasets = []
+    for f in progress_bar(flist):
+        datasets.append(xr.open_zarr(f, **zarr_kwargs))
+    # convert to cmip6 dict
+    return {cmip6_dataset_id(ds):ds for ds in datasets}
 
-    filelist = list(ddir.glob(pattern))
-    if len(filelist) == 0:
-        print(f"No files found for pattern:{pattern} in {str(ddir)}")
-        return None
-    else:
-        datadict = {}
-        for model in models:
-            if verbose:
-                print(model)
-            # need to add the sep variables, or else some models (CanESM get double counted)
-            model_filelist = [f for f in filelist if sep + model + sep in str(f)]
-            if len(model_filelist) > 0:
-                datadict[model] = {}
-                for experiment in experiments:
-                    experiment_filelist = [
-                        f for f in model_filelist if experiment in str(f)
-                    ]
-                    if len(experiment_filelist) > 0:
-                        if verbose:
-                            print(len(experiment_filelist))
-                        # Build an option for zarrs once I need it.
-                        # find out which chunks to apply
-                        ds_test = xr.open_dataset(experiment_filelist[0])
-                        chunks = {
-                            k: v for k, v in read_chunks.items() if k in ds_test.dims
-                        }
+# def read_files(
+#     ddir,
+#     pattern="*.nc",
+#     sep="_",
+#     models=o2_models(), # this should go and just scan all files
+#     experiments=["historical", "ssp585"],
+#     read_chunks={"time": 10, "memebr_id": 1},
+#     verbose=False,
+# ):
+#     """Scans `ddir` and loads/parses datasets into a nested dictionary of xarray datasets"""
+#     if not isinstance(ddir, pathlib.Path):
+#         ddir = pathlib.Path(ddir)
 
-                        datasets = [
-                            xr.open_dataset(f, chunks=chunks)
-                            for f in experiment_filelist
-                        ]  # ,
-                        # not sure if this is the most general, but for now it should work...
-                        ds = xr.concat(
-                            datasets,
-                            dim="member_id",
-                            compat="override",
-                            coords="minimal",
-                        )
-                        # replace some attrs (!!! This should actually be done upstream)
-                        ds.attrs["source_id"] = model
-                        ds.attrs["experiment_id"] = experiment
-                        datadict[model][experiment] = ds
-                    else:
-                        print(
-                            f"No files found for model:{model} experiment:{experiment}"
-                        )
+#     filelist = list(ddir.glob(pattern))
+#     if len(filelist) == 0:
+#         print(f"No files found for pattern:{pattern} in {str(ddir)}")
+#         return None
+#     else:
+#         datadict = {}
+#         for model in models:
+#             if verbose:
+#                 print(model)
+#             # need to add the sep variables, or else some models (CanESM get double counted)
+#             model_filelist = [f for f in filelist if sep + model + sep in str(f)]
+#             if len(model_filelist) > 0:
+#                 datadict[model] = {}
+#                 for experiment in experiments:
+#                     experiment_filelist = [
+#                         f for f in model_filelist if experiment in str(f)
+#                     ]
+#                     if len(experiment_filelist) > 0:
+#                         if verbose:
+#                             print(len(experiment_filelist))
+#                         # Build an option for zarrs once I need it.
+#                         # find out which chunks to apply
+#                         ds_test = xr.open_dataset(experiment_filelist[0])
+#                         chunks = {
+#                             k: v for k, v in read_chunks.items() if k in ds_test.dims
+#                         }
 
-            else:
-                print(f"No files found for model:{model}")
-        return datadict
+#                         datasets = [
+#                             xr.open_dataset(f, chunks=chunks)
+#                             for f in experiment_filelist
+#                         ]  # ,
+#                         # not sure if this is the most general, but for now it should work...
+#                         ds = xr.concat(
+#                             datasets,
+#                             dim="member_id",
+#                             compat="override",
+#                             coords="minimal",
+#                         )
+#                         # replace some attrs (!!! This should actually be done upstream)
+#                         ds.attrs["source_id"] = model
+#                         ds.attrs["experiment_id"] = experiment
+#                         datadict[model][experiment] = ds
+#                     else:
+#                         print(
+#                             f"No files found for model:{model} experiment:{experiment}"
+#                         )
+
+#             else:
+#                 print(f"No files found for model:{model}")
+#         return datadict
     
 def maybe_unpack_date(date):
     """Optionally Extracts the data value of a 1 element xarray datarray."""
@@ -187,3 +209,58 @@ def replace_time(ds, ref_date, start_idx=0, freq="1MS", calendar=None):
     )
     ds.time.attrs = attrs
     return ds
+
+def fail_age(ds):
+    """Returns False if dataset was deemed unusable"""
+    # TODO: Make this not some of the most embarrising code I have ever written....
+    fail_attrs = [
+        {'source_id':'MPI-ESM1-2-LR', 'variant_label':'r10i1p1f1'},
+        {'source_id':'MPI-ESM1-2-LR', 'variant_label':'r8i1p1f1'},
+        {'source_id':'MPI-ESM1-2-LR', 'variant_label':'r9i1p1f1'},
+        {'source_id':'MRI-ESM2-0', 'variant_label':'all'},
+        {'source_id':'MPI-ESM1-2-HR', 'variant_label':'all'},
+    ]
+    check = []
+    for fa in fail_attrs:
+        subcheck = []
+        for k_fail,v_fail in fa.items():
+            
+            v = ds.attrs.get(k_fail)
+            if (v_fail == v) or (v_fail=='all'):
+                subcheck.append(True)
+            else:
+                subcheck.append(False)
+        check.append(all(subcheck))
+        
+    check = any(check)
+    return check
+
+def slope(da):
+    """returns slope per century"""
+    assert len(da.time) < 300 # make sure the data is annual
+    assert len(da.time)> 95 # make sure this covers most of the century allows for small adjustments 
+    reg = linear_trend(da.sel(time=trend_slice), 'time')
+    return reg.slope * 100, reg.p_value 
+
+
+target_grid = xe.util.grid_global(1, 1)
+
+def regrid(ds):
+    regridder = xe.Regridder(
+        ds, target_grid, "bilinear", periodic=True, ignore_degenerate=True
+    )
+    ds = ds.load()
+
+    return regridder(ds)
+
+def member_treatment(ds):
+    
+    # average members
+    if 'member_id' not in ds.dims:
+        ds = ds.expand_dims('member_id')
+
+    averaged_members = len(ds.member_id)
+    member_ids = ds.member_id.data
+    ds = ds.mean('member_id')
+    
+    return ds, averaged_members, member_ids
