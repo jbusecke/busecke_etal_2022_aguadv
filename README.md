@@ -42,7 +42,8 @@ Then you can just run `notebooks/busecke_etal_2021_aguadv_plots.ipynb` to reprod
 
 ## Full preprocessing
 
-The code for processing the raw data can be found in `notebooks/preprocessing/`. These are only reproducible on the princeton cluster [tigercpu](https://researchcomputing.princeton.edu/systems/tiger) and are not included due to their sheer size (100TB +).
+The code for processing the raw data is found in the more general purpuse [cmip6_omz](https://github.com/jbusecke/cmip6_omz) repository. hese are only reproducible on the princeton [HPC system](https://researchcomputing.princeton.edu/systems/) and are not included due to their sheer size (100TB + for the raw CMIP6 data and still many 100 GBs for the raw processed data).
+Notebooks to produce the plotting data (archived on [zenodo]()) can be found in `notebooks/preprocessing/`. T
 
 --------
 
