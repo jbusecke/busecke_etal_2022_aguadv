@@ -22,6 +22,10 @@ dependencies:
   - nc-time-axis
   - xgcm
   - pip
+  # these are just upstream requirements. Make sure these are not required in the final submission
+  - rechunker
+  - fastprogress
+  - xhistogram
   - pip:
       - git+https://github.com/jbusecke/cmip6_preprocessing.git
       - git+https://github.com/jbusecke/xarrayutils.git
