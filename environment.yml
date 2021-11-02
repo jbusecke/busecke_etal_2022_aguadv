@@ -2,9 +2,7 @@ name: busecke_etal_2021_aguadv
 channels:
   - conda-forge
 dependencies:
-  - python
-  - ipykernel
-  - astropy
+  - python=3.9
   - dask
   - distributed
   - cartopy
@@ -27,4 +25,4 @@ dependencies:
   - pip:
       - git+https://github.com/jbusecke/cmip6_preprocessing.git
       - git+https://github.com/jbusecke/xarrayutils.git
-      - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Fix version for pub
+      - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Release versions for pub
