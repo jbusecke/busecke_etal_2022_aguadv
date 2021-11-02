@@ -2,6 +2,7 @@ name: busecke_etal_2021_aguadv
 channels:
   - conda-forge
 dependencies:
+  - python
   - ipykernel
   - astropy
   - dask
