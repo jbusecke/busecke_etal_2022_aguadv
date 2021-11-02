@@ -2,14 +2,10 @@ name: busecke_etal_2021_aguadv
 channels:
   - conda-forge
 dependencies:
-  # Required for full project functionality (dont remove)
-  - pytest
-  # Examples (remove and add as needed)
   - ipykernel
   - astropy
   - dask
   - distributed
-  - dask-jobqueue
   - cartopy
   - xarray
   - numpy
@@ -21,20 +17,13 @@ dependencies:
   - cmocean
   - regionmask
   - xesmf
-  - xhistogram
   - zarr
-  - gsw
-  - numba
   - h5netcdf
-  - pip
   - cf_xarray
-#   - rechunker # if needed take <=0.3.3
-  - fastjmd95
   - nc-time-axis
-  - xarrayutils
-  - intake-esm
   - xgcm
-  - cmip6_preprocessing
   - pip
   - pip:
-      - git+https://github.com/jbusecke/cmip6_omz.git
+      - git+https://github.com/jbusecke/cmip6_preprocessing.git
+      - git+https://github.com/jbusecke/xarrayutils.git
+      - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Fix version for pub
