@@ -243,15 +243,17 @@ def slope(da):
     return reg.slope * 100, reg.p_value 
 
 
-target_grid = xe.util.grid_global(1, 1)
 
-def regrid(ds):
+
+def regrid(ds, dlon=1, dlat=1):
+    target_grid = xe.util.grid_global(dlon, dlat)
     regridder = xe.Regridder(
-        ds, target_grid, "bilinear", periodic=True, ignore_degenerate=True
+        ds, target_grid, "bilinear", periodic=True, ignore_degenerate=True, unmapped_to_nan=True
     )
-    ds = ds.load()
-
-    return regridder(ds)
+    ds_out = regridder(ds)
+    ds_out = ds_out.assign_coords(x=ds_out.lon.isel(y=0).data, y=ds_out.lat.isel(x=0).data)
+    ds_out.attrs = {k:v for k,v in ds.attrs.items() if k not in ['grid_label']}
+    return ds_out
 
 def member_treatment(ds):
     
@@ -264,3 +266,72 @@ def member_treatment(ds):
     ds = ds.mean('member_id')
     
     return ds, averaged_members, member_ids
+
+def cut_long_members(ds):
+    """Cut members beyong 2100 to avoid issues with dask chunking"""
+    if 'time' in ds.dims:
+        ds = ds.sel(time=slice(None, '2100'))
+    return ds
+
+
+#### filter out datasets with unexpected length (this should probably go to cmip6_preprocessing?)
+import warnings
+
+def _expected_length(ds):
+    if ds.experiment_id == "historical":
+        if ds.table_id == "Omon":
+            return 1980
+        else:
+            warnings.warn(
+                f"unknown table_id [{ds.table_id}] for {cmip6_dataset_id(ds)}"
+            )
+            return 1
+
+    elif "ssp" in ds.experiment_id:
+        if ds.table_id == "Omon":
+            return 1032
+        else:
+            warnings.warn(
+                f"unknown table_id [{ds.table_id}] for {cmip6_dataset_id(ds)}"
+            )
+            return 1
+
+    elif "Control" in ds.experiment_id:
+        if ds.table_id == "Omon":
+            return (
+                12 * 50
+            )  # just give a low number here so none of the controls are dropped
+        else:
+            warnings.warn(
+                f"unknown table_id [{ds.table_id}] for {cmip6_dataset_id(ds)}"
+            )
+            return 1
+    else:
+        warnings.warn(
+            f"unknown experiment_id [{ds.experiment_id}] for {cmip6_dataset_id(ds)}"
+        )
+        return 1
+
+
+def drop_short_long_datasets(ddict):
+    """Filters a dictionary of xarray datasets and drops datasets that do not have the expected length.
+    This is mostly relevant for metrics, which sometimes are not complete in time."""
+    ddict_filtered = {}
+    for name, ds in ddict.items():
+        # drop everything but main variable
+        ds = ds.drop([v for v in ds.data_vars if v != ds.variable_id])
+        # remove any output in density coordinates (Nor ESM?)
+        if not 'rho' in ds.dims:
+            # filter out too short runs
+            if "time" not in ds.dims:
+                ddict_filtered[name] = ds
+            else:
+                if len(ds.time) < _expected_length(ds):
+                    print("---------DROPPED--------")
+                    print(name)
+                    print(_expected_length(ds))
+                    print(len(ds.time))
+                    print("---------DROPPED--------")
+                else:
+                    ddict_filtered[name] = ds
+    return ddict_filtered
