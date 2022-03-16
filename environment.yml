@@ -15,7 +15,7 @@ dependencies:
   - pandas
   - matplotlib
   - cmocean
-  - regionmask<0.9 # This just needs a fix in cmip6_omz (for `mask_basin`) for the final version, then I can release this.
+  - regionmask<0.8 # This just needs a fix in cmip6_omz (for `mask_basin`) for the final version, then I can release this.
   - xesmf
   - zarr
   - h5netcdf
