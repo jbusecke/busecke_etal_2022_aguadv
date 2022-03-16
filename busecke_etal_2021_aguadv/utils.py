@@ -83,19 +83,32 @@ def stci(ds):
     return region.max(dims) - region.min(dims)
 
 
-def load_zarr_directory(path, pattern='*.zarr', zarr_kwargs={}):
-    """Convenience function to read CMIP6 data"""
+def load_directory(path, pattern='*.zarr', zarr_kwargs={}, nc_kwargs={}, naming='dataset_id'):
+    """Convenience function to read CMIP6 data.
+    `naming` can be one of `dataset_id` (for this the loaded dataset must have cmip6 compatible attrs, 
+    or `filename`, then the filename minus the pattern is used.
+    """
     zarr_kwargs.setdefault('use_cftime', True)
     zarr_kwargs.setdefault('consolidated', True)
+    
     if not isinstance(path, pathlib.Path):
         path = pathlib.Path(path)
     flist = list(path.glob(pattern))
     # TODO Can I accelerate this with dask.delayed?
-    datasets = []
+    datasets = {}
     for f in progress_bar(flist):
-        datasets.append(xr.open_zarr(f, **zarr_kwargs))
-    # convert to cmip6 dict
-    return {cmip6_dataset_id(ds):ds for ds in datasets}
+        if '.zarr' in pattern:
+            ds = xr.open_zarr(f, **zarr_kwargs)
+        elif '.nc' in pattern:
+            ds = xr.open_dataset(f, **nc_kwargs)
+            
+        if naming == 'dataset_id':
+            key = cmip6_dataset_id(ds)
+        elif naming == 'filename':
+            key = f.stem
+        datasets[key] = ds
+    return datasets
+        
 
 # def read_files(
 #     ddir,

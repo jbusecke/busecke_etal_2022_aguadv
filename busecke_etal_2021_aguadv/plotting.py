@@ -8,86 +8,6 @@ import cartopy.crs as ccrs
 from busecke_etal_2021_aguadv.utils import o2_models
 from xarrayutils.plotting import map_util_plot
 
-def finish_map_plot(ax):
-    print('refactor to polish_map?')
-    map_util_plot(ax)
-    ax.gridlines(draw_labels=True)
-    ax.set_extent((115, 305, -40, 50), crs=ccrs.PlateCarree())
-
-# def jitter_plot(
-#     pos,
-#     datasets,
-#     model_jitter_amount=0.1,
-#     model_margin=0.1,
-#     ax=None,
-#     alpha=1.0,
-#     bars=True,
-#     s=25,
-#     **kwargs
-# ):
-
-#     kwargs.setdefault("s", 35)
-
-#     if ax is None:
-#         ax = plt.gca()
-
-#     model_margin = model_margin * model_jitter_amount
-
-#     # first determine the model cluster positions
-#     n_models = len(datasets)
-#     pos_model = np.random.choice(
-#         np.linspace(pos - model_jitter_amount, pos + model_jitter_amount, n_models),
-#         size=n_models,
-#         replace=False,
-#     )
-#     member_jitter_amount = (model_jitter_amount - model_margin) / n_models
-
-#     model_member_averaged = []
-
-#     for model, p_model in zip(datasets.keys(), pos_model):
-#         values = np.atleast_1d(datasets[model].data.flat)
-#         #         errors = np.atleast_1d(model_std[model])
-#         color = o2_model_colors()[model]
-#         # get total number of datapoints for jitter and create shifted positions if more than one member
-#         n_values = len(values)
-
-#         std = np.nanstd(values)
-#         mean = np.nanmean(values)
-
-#         if n_values > 1:
-#             if bars:
-#                 ax.plot(
-#                     [mean - std, mean + std],
-#                     [p_model, p_model],
-#                     color=color,
-#                     alpha=alpha,
-#                     lw=1,
-#                 )
-#             else:
-#                 pos_jitter = np.random.choice(
-#                     np.linspace(
-#                         p_model - member_jitter_amount,
-#                         p_model + member_jitter_amount,
-#                         n_values,
-#                     ),
-#                     size=n_values,
-#                     replace=False,
-#                 )
-
-#                 color = o2_model_colors()[model]
-#                 ax.scatter(
-#                     values, pos_jitter, color=color, alpha=0.5, edgecolor="none", s=s
-#                 )
-
-#         # plot a more distinct mean value
-#         ax.scatter(
-#             mean, p_model, color=color, alpha=alpha, edgecolor="none", **kwargs
-#         )  # edgecolor="k",
-#         model_member_averaged.append(np.nanmean(values))
-
-#     model_member_averaged = np.array(model_member_averaged)
-#     return model_member_averaged
-
 
 def o2_model_colors():
     """Returns a color dict for the o2_models"""
@@ -152,12 +72,22 @@ class ScientificManualFormatter(matplotlib.ticker.ScalarFormatter):
         if self._useMathText:
             self.format = r"$\mathdefault{%s}$" % self.format
             
-            
-def polish_map(ax, crs=None, lon_labels='bottom', lat_labels='left', lon_ticks=None, lat_ticks=None, extent=True):
+    
+def polish_map(
+    ax,
+    crs=None,
+    lon_labels='bottom',
+    lat_labels='left',
+    lon_ticks=None,
+    lat_ticks=None,
+    extent=[115, 305, -40, 50],
+    aspect=False
+):
     if crs is None:
         crs = ccrs.PlateCarree()
     map_util_plot(ax, land_color="0.2", labels=True)
-    ax.set_aspect(1.5)
+    if aspect:
+        ax.set_aspect(1.5)
     gl = ax.gridlines(
         crs=crs,
         draw_labels=True,
@@ -191,7 +121,7 @@ def polish_map(ax, crs=None, lon_labels='bottom', lat_labels='left', lon_ticks=N
         gl.ylocator = mticker.FixedLocator(lat_ticks)
     
     if extent:
-        ax.set_extent([110, 300, -30, 30], crs=crs)
+        ax.set_extent(extent, crs=crs)
         
         
 def mask_multi_model(da, dim='model'):
