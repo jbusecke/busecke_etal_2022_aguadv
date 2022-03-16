@@ -3,8 +3,6 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
-  - dask
-  - distributed
   - cmip6_preprocessing
   - cartopy
   - astropy
@@ -23,10 +21,13 @@ dependencies:
   - nc-time-axis
   - xgcm
   - pip
+  - xarrayutils
   # these are just upstream requirements. Make sure these are not required in the final submission
   - rechunker
   - fastprogress
   - xhistogram
-  - xarrayutils
+  - dask
+  - distributed
+
   - pip:
       - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Release versions for pub
