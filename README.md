@@ -4,7 +4,7 @@
 <!-- [![codecov](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv/branch/master/graph/badge.svg)](https://codecov.io/gh/jbusecke/busecke_etal_2021_aguadv) -->
 [![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
 [![DOI](https://sandbox.zenodo.org/badge/DOI/10.5072/zenodo.1035179.svg)](https://sandbox.zenodo.org/record/1035179)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4742926.svg)](https://doi.org/10.5281/zenodo.4742926)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6361114.svg)](https://doi.org/10.5281/zenodo.6361114)
 <!-- [![pypi](https://img.shields.io/pypi/v/busecke_etal_2021_aguadv.svg)](https://pypi.org/project/busecke_etal_2021_aguadv) -->
 <!-- [![conda-forge](https://img.shields.io/conda/dn/conda-forge/busecke_etal_2021_aguadv?label=conda-forge)](https://anaconda.org/conda-forge/busecke_etal_2021_aguadv) -->
 <!-- [![Documentation Status](https://readthedocs.org/projects/busecke_etal_2021_aguadv/badge/?version=latest)](https://busecke_etal_2021_aguadv.readthedocs.io/en/latest/?badge=latest) -->
