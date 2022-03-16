@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9
-  - cmip6_preprocessing
+#   - cmip6_preprocessing # Need to release a new version to have the latest changes
   - cartopy
   - astropy
   - xarray
@@ -28,6 +28,6 @@ dependencies:
   - xhistogram
   - dask
   - distributed
-
   - pip:
+      - git+https://github.com/jbusecke/cmip6_preprocessing.git
       - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Release versions for pub
