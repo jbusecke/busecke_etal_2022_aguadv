@@ -26,6 +26,7 @@ dependencies:
   # these are just upstream requirements. Make sure these are not required in the final submission
   - rechunker
   - fastprogress
+  - tqdm
   - xhistogram
   - pip:
       - git+https://github.com/jbusecke/cmip6_preprocessing.git
