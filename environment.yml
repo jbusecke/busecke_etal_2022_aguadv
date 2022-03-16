@@ -15,7 +15,7 @@ dependencies:
   - pandas
   - matplotlib
   - cmocean
-  - regionmask
+  - regionmask<0.9 # This just needs a fix in cmip6_omz (for `mask_basin`) for the final version, then I can release this.
   - xesmf
   - zarr
   - h5netcdf
@@ -26,7 +26,6 @@ dependencies:
   # these are just upstream requirements. Make sure these are not required in the final submission
   - rechunker
   - fastprogress
-  - tqdm
   - xhistogram
   - pip:
       - git+https://github.com/jbusecke/cmip6_preprocessing.git
