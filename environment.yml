@@ -5,17 +5,17 @@ dependencies:
   - python=3.9
   - dask
   - distributed
+  - cmip6_preprocessing
   - cartopy
   - astropy
   - xarray
   - numpy
   - scipy
-  - dask
   - netcdf4
   - pandas
   - matplotlib
   - cmocean
-  - regionmask<0.8 # This just needs a fix in cmip6_omz (for `mask_basin`) for the final version, then I can release this.
+  - regionmask
   - xesmf
   - zarr
   - h5netcdf
@@ -27,7 +27,6 @@ dependencies:
   - rechunker
   - fastprogress
   - xhistogram
+  - xarrayutils
   - pip:
-      - git+https://github.com/jbusecke/cmip6_preprocessing.git
-      - git+https://github.com/jbusecke/xarrayutils.git
       - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Release versions for pub
