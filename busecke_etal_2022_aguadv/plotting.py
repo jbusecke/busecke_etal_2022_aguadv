@@ -5,7 +5,7 @@ import matplotlib.patches as mpatches
 import matplotlib.ticker as mticker
 
 import cartopy.crs as ccrs
-from busecke_etal_2021_aguadv.utils import o2_models
+from busecke_etal_2022_aguadv.utils import o2_models
 from xarrayutils.plotting import map_util_plot
 
 

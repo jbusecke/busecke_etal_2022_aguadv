@@ -1,9 +1,8 @@
-name: busecke_etal_2021_aguadv
+name: busecke_etal_2022_aguadv
 channels:
   - conda-forge
 dependencies:
   - python=3.9
-#   - cmip6_preprocessing # Need to release a new version to have the latest changes
   - cartopy
   - astropy
   - xarray
@@ -21,6 +20,8 @@ dependencies:
   - nc-time-axis
   - xgcm
   - pip
+  - cmip6_preprocessing
+  - ipykernel
   - xarrayutils
   # these are just upstream requirements. Make sure these are not required in the final submission
   - rechunker
@@ -29,5 +30,4 @@ dependencies:
   - dask
   - distributed
   - pip:
-      - git+https://github.com/jbusecke/cmip6_preprocessing.git
-      - git+https://github.com/jbusecke/cmip6_omz.git #TODO: Release versions for pub
+      - git+https://github.com/jbusecke/cmip6_omz.git@v0.1.0
