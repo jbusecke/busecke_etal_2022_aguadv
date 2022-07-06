@@ -1,7 +1,7 @@
 # busecke_etal_2022_aguadv
 
 [![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6799335.svg)](https://doi.org/10.5281/zenodo.6799335)
+[![Data](https://zenodo.org/badge/DOI/10.5281/zenodo.6799335.svg)](https://doi.org/10.5281/zenodo.6799335)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4742926.svg)](https://doi.org/10.5281/zenodo.4742926)
 
 
@@ -16,7 +16,8 @@ The simplest option. Just click on the button below and execute the notebook whe
 
 > Downloading the data and unpacking it can take some time.
 
-[![Binder](https://binder.pangeo.io/badge_logo.svg)](https://binder.pangeo.io/v2/gh/jbusecke/busecke_etal_2022_aguadv/main?filepath=notebooks%2Fplots.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jbusecke/busecke_etal_2022_aguadv/main?labpath=notebooks%2Fplots.ipynb)
+[![Binder](https://binder-staging.2i2c.cloud/badge_logo.svg)](https://binder-staging.2i2c.cloud/v2/gh/jbusecke/busecke_etal_2022_aguadv/main?labpath=notebooks%2Fplots.ipynb)
 
 ### Option 2: Manually reproduce results
 Clone this repository to your machine of choice
