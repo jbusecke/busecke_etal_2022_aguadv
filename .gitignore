@@ -97,3 +97,5 @@ target/
 # Data Files
 *.zarr
 *.nc
+
+plots/
