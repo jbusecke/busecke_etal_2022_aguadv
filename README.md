@@ -16,7 +16,6 @@ The simplest option. Just click on the button below and execute the notebook whe
 
 > Downloading the data and unpacking it can take some time.
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jbusecke/busecke_etal_2022_aguadv/main?labpath=notebooks%2Fplots.ipynb)
 [![Binder](https://binder-staging.2i2c.cloud/badge_logo.svg)](https://binder-staging.2i2c.cloud/v2/gh/jbusecke/busecke_etal_2022_aguadv/main?labpath=notebooks%2Fplots.ipynb)
 
 ### Option 2: Manually reproduce results
