@@ -1,8 +1,11 @@
 # busecke_etal_2022_aguadv
+| | |
+| ----- | ------- |
+| License | [![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT) |
+| Data  | [![Data](https://zenodo.org/badge/DOI/10.5281/zenodo.6799335.svg)](https://doi.org/10.5281/zenodo.6799335) |
+| Code |[![Software](https://zenodo.org/badge/DOI/10.5281/zenodo.6803919.svg)](https://doi.org/10.5281/zenodo.6803919)|
 
-[![License:MIT](https://img.shields.io/badge/License-MIT-lightgray.svg?style=flt-square)](https://opensource.org/licenses/MIT)
-[![Data](https://zenodo.org/badge/DOI/10.5281/zenodo.6799335.svg)](https://doi.org/10.5281/zenodo.6799335)
-[![Software](https://zenodo.org/badge/DOI/10.5281/zenodo.6800661.svg)](https://doi.org/10.5281/zenodo.6800661)
+
 
 
 The code to reproduce the Figures from our paper submitted to AGU Advances.
